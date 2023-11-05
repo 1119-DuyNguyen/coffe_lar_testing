@@ -43,11 +43,11 @@ class ProductSearch extends Component
 
         }
 
-        if (!empty($this->searchTerm)) {
-            $products = $products
-                ->where('name', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
-        }
+        // if (!empty($this->searchTerm)) {
+        //     $products = $products
+        //         ->where('name', 'like', '%' . $this->searchTerm . '%')
+        //         ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
+        // }
 
 
 //        if ($request->filled('range-min') && $request->filled('range-max')) {

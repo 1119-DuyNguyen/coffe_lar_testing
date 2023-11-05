@@ -58,7 +58,7 @@
         @else
             <div class="col-12" style="text-align: center; margin-top: 15px;">
                 <img src="{{ asset('frontend/img/none.svg')}}" alt="Không tìm thấy"><br>
-                <p>Rất tiếc, chúng tôi không tìm thấy kết quả phù hợp. Vui lòng thử lại với một từ khóa khác.</p>
+                <p>Rấc tiết, chúng tôi không tìm thấy kết quả phù hợp. Vui lòng thử lại với một từ khóa khác.</p>
             </div>
         @endif
 

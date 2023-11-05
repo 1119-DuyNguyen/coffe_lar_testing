@@ -64,7 +64,7 @@
             <div class="row">
                 @if($productNew)
                     @foreach($productNew as $value)
-                        <div class="col-12 col-md-6 col-lg-3 ">
+                        <div class="col-{{ rand(2,4) }} ">
                             <x-product :product="$value"></x-product>
 
                         </div>
