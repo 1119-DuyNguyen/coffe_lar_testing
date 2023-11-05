@@ -25,7 +25,14 @@ truy cập trang chủ nhưng không tìm thấy
 
 # Lỗi Crash
 http://coffe_lar_testing.test/cart
-đang không biết cho vô đâu :))
+## redirect-loop
+Người dùng sẽ bị điều hướng tới trang thao tác trước khi truy cập vào cart
+Lỗi xảy ra khi người dùng có sản phẩm trong giỏ hàng, truy cập trang giỏ hàng, xoá tất cả sản phẩm trong giỏ hàng và 
+truy cập đường dẫn  
+http://coffe_lar_testing.test/cart
+thì sẽ bị crash do bị vòng lặp điều hướng vì trang người dùng thao tác trước đó là trang giỏ hàng.
+Hình dưới minh hoạ
+![Alt text](image-5.png)
 
 # Lỗi field validation, nhập sai yêu cầu (bắt buộc có chữ cái, nhưng thiếu không báo lỗi, hoặc trường số mà cho phép nhập chữ..)
 /profile
