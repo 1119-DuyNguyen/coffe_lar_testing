@@ -25,8 +25,7 @@ truy cập trang chủ nhưng không tìm thấy
 
 # Lỗi Crash
 http://coffe_lar_testing.test/cart
-Người dùng chưa có sản phẩm trong giỏ hàng mà truy cập thì sẽ bị điều hướng quay lại nơi truy cập
-Nếu người dùng
+đang không biết cho vô đâu :))
 
 # Lỗi field validation, nhập sai yêu cầu (bắt buộc có chữ cái, nhưng thiếu không báo lỗi, hoặc trường số mà cho phép nhập chữ..)
 /profile
