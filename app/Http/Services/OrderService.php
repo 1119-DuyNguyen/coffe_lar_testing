@@ -21,25 +21,7 @@ class OrderService
     {
         $this->giaoHangNhanhService=$giaoHangNhanhService;
     }
-    private function isInsideArrayKey($valueCheck, $keyCheck, $array)
-    {
-        foreach ($array as $key => $value) {
-            if (isset($value[$keyCheck]) && $value[$keyCheck] == $valueCheck) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    private function getValueInsideArrayKey($valueCheck, $keyCheck,$keyValue, $array)
-    {
-        foreach ($array as $key => $value) {
-            if (isset($value[$keyCheck]) && $value[$keyCheck] == $valueCheck) {
-                return $value[$keyValue];
-            }
-        }
-        return '';
-    }
 
     public function checkOutFormSubmit(Request $request)
     {
@@ -48,20 +30,20 @@ class OrderService
         $idWard = $request->input("ward");
         $dataProvince = Cache::get('province')['data'] ?? [];
 
-        if (empty($dataProvince) || !$this->isInsideArrayKey($idProvince, 'ProvinceID', $dataProvince)) {
+        if (empty($dataProvince) || !isInsideArrayKey($idProvince, 'ProvinceID', $dataProvince)) {
             throw ValidationException::withMessages(['province' => "Dữ liệu trường tỉnh/thành phố không hợp lệ "]);
         }
         $dataDistrict = Cache::get('district-' . $idProvince)['data'] ?? [];
-        if (empty($dataDistrict) || !$this->isInsideArrayKey($idDistrict, 'DistrictID', $dataDistrict)) {
+        if (empty($dataDistrict) || !isInsideArrayKey($idDistrict, 'DistrictID', $dataDistrict)) {
             throw ValidationException::withMessages(['district' => "Dữ liệu trường quận/huyện không hợp lệ"]);
         }
         $dataWard = Cache::get('ward-' . $idDistrict)['data'] ?? [];
-        if (empty($dataWard) || !$this->isInsideArrayKey($idWard, 'WardCode', $dataWard)) {
+        if (empty($dataWard) || !isInsideArrayKey($idWard, 'WardCode', $dataWard)) {
             throw ValidationException::withMessages(['ward' => "Dữ liệu trường phường/xã không hợp lệ"]);
         }
-        $nameProvince=$this->getValueInsideArrayKey($idProvince, 'ProvinceID','ProvinceName', $dataProvince);
-        $nameDistrict=$this->getValueInsideArrayKey($idDistrict, 'DistrictID','DistrictName', $dataDistrict);
-        $nameWard=$this->getValueInsideArrayKey($idWard, 'WardCode','WardName', $dataWard);
+        $nameProvince=getValueInsideArrayKey($idProvince, 'ProvinceID','ProvinceName', $dataProvince);
+        $nameDistrict=getValueInsideArrayKey($idDistrict, 'DistrictID','DistrictName', $dataDistrict);
+        $nameWard=getValueInsideArrayKey($idWard, 'WardCode','WardName', $dataWard);
         $nameAddresss=$request->input('address','');
         $realAddress = $nameProvince.', ' . $nameDistrict.', '.$nameWard.($nameAddresss ? ', '.$nameAddresss: $nameAddresss);
         //getPriceOrder

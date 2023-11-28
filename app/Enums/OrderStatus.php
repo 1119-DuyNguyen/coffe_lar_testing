@@ -33,16 +33,6 @@ final class OrderStatus extends Enum
                 $details = __('processed_and_ready_to_ship_details');
                 break;
 
-            case 'dropped_off':
-                $status = __('dropped_off');
-                $details = __('dropped_off_details');
-                break;
-
-            case 'shipped':
-                $status = __('shipped');
-                $details = __('shipped_details');
-                break;
-
             case 'out_for_delivery':
                 $status = __('out_for_delivery');
                 $details = __('out_for_delivery_details');
