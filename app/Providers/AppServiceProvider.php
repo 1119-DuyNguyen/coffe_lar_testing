@@ -26,10 +26,11 @@ class AppServiceProvider extends ServiceProvider
         //
 
     }
-
+    // thiết lập phân quyền
     private function setupRBAC(){
         $roles = Role::with('permissions')->get();
         $permissionsArray = [];
+        // gán các quyền với role  tương ứng
         foreach ($roles as $role) {
             foreach ($role->permissions as $permissions) {
                 $permissionsArray[$permissions->name][$role->id]= true;
@@ -37,13 +38,27 @@ class AppServiceProvider extends ServiceProvider
         }
         // Every permission may have multiple roles assigned
         foreach ($permissionsArray as $name => $roles) {
+            // Định nghĩa các quyền người dùng
             Gate::define($name, function ($user) use ($name,$permissionsArray){
                 // We check if we have the needed roles among current user's roles
                 return isset($permissionsArray[$name][$user->role->id]);
-//                    // We check if we have the needed roles among current user's roles
-//                    return count(array_intersect($user->roles->pluck('id')->toArray(), $roles)) > 0;
             });
         }
+        // Kiểm tra xem có quyền admin không
+        $gate = array_filter(Gate::abilities(), function ($var, $key) {
+            return  str_contains($key, 'admin');
+        }, ARRAY_FILTER_USE_BOTH);
+        Gate::define('admin', function ($user) use ($gate) {
+
+            //check if admin site
+            foreach ($gate as  $key => $value) {
+
+                if (Gate::any($key)) {
+                    return true;
+                }
+            }
+            return false;
+        });
     }
     /**
      * Bootstrap any application services.
