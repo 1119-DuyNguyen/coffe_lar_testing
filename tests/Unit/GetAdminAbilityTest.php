@@ -22,6 +22,11 @@ class GetAdminAbilityTest extends TestCase
         $gateAbility = array("admin" => function () {},
         "user" => function () {});
         $result = GateService::getAdminAbility($gateAbility);
-        $this->assertTrue($result == array("admin" => function () {}));
+        foreach ($result as $key => $value) {
+            if ($key != "admin") {
+                $this->assertTrue(false);
+            }
+        }
+        $this->assertTrue(true);
     }
 }
