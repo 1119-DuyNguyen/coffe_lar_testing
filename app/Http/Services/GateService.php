@@ -10,16 +10,16 @@ class GateService
     {
         //route admin.category.index
         $last_word_start = strrpos($nameRoute, '.'); // +1 so we don't include the space in our result
-        $last_word = substr($nameRoute, $last_word_start); // $last_word = PHP.
+        $last_word = substr($nameRoute, $last_word_start+1); // $last_word = PHP.
         $nameRoute = substr_replace($nameRoute, '', $last_word_start);
         //route admin.category
         switch ($last_word) {
             case 'change-status':
             case 'edit':
-                $nameRoute = substr_replace($nameRoute, 'update', $last_word_start);
+                $nameRoute = substr_replace($nameRoute, '.update', $last_word_start);
                 break;
             case 'create':
-                $nameRoute = substr_replace($nameRoute, 'store', $last_word_start);
+                $nameRoute = substr_replace($nameRoute, '.store', $last_word_start);
                 break;
         }
         return $nameRoute;
@@ -33,13 +33,14 @@ class GateService
         // user.category.index
         if(is_array($gateAbility))
         {
-            foreach( $gateAbility as $k=>$v )
-            {
+            for($i = 0;
+            $i < count($gateAbility);
+            $i++) {
                 //xoá những quyền không chứa "admin"
-                if(!str_contains($k,'admin')){
-                    unset($gateAbility[$k]);
-                }
+                if (!str_contains(array_keys($gateAbility)[$i], "admin"))
+				    unset($gateAbility[$i]);
             }
+            return $gateAbility;
         }
         return [];
     }
