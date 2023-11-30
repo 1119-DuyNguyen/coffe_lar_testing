@@ -6,13 +6,19 @@ use Illuminate\Support\Facades\Cache;
 
 class SettingService
 {
-    public static function array_override( $default, $override )
+    public static function array_override($default, $override)
     {
-        if(is_array($override))
-        {
-            foreach( $default as $k=>$v )
-            {
-                if( isset( $override[$k] ) ) $default[$k] = $override[$k];
+
+        if (is_array($override)) {
+            for (
+                $i = 0;
+                $i < count($default);
+                ++$i
+            ) {
+
+                if (isset($override[array_keys($default)[$i]]))
+
+                    $default[array_keys($default)[$i]] =  $override[array_keys($default)[$i]];
             }
         }
         return $default;
@@ -22,7 +28,7 @@ class SettingService
 
         Cache::rememberForever('generalSetting', function () {
             return [
-                'name'=>'Ngôi nhà cafe',
+                'name' => 'Ngôi nhà cafe',
                 'site_name' => 'Shop',
                 'layout' => 'LTR',
                 'contact_email' => 'contact@gmail.com',
@@ -30,7 +36,7 @@ class SettingService
                 'contact_address' => 'VietNam',
                 'map' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.1435090089785!2d90.42196781465853!3d23.81349539228068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c62fb95f16c1%3A0xb333248370356dee!2sJamuna%20Future%20Park!5e0!3m2!1sen!2sbd!4v1639724859199!5m2!1sen!2sbd',
                 'currency_name' => 'USD',
-//                'time_zone' => '2',
+                //                'time_zone' => '2',
                 'currency_icon' => '$'
             ];
         });
@@ -63,15 +69,14 @@ class SettingService
     }
     public static function updateGeneralSetting($data)
     {
-         Cache::forever('generalSetting',SettingService::array_override(Cache::get('generalSetting'),$data));
+        Cache::forever('generalSetting', SettingService::array_override(Cache::get('generalSetting'), $data));
     }
     public static function updateEmailSetting($data)
     {
-         Cache::forever('emailSetting',SettingService::array_override(Cache::get('emailSetting'),$data));
-
+        Cache::forever('emailSetting', SettingService::array_override(Cache::get('emailSetting'), $data));
     }
     public static function updateLogoSetting($data)
     {
-         Cache::forever('logoSetting',SettingService::array_override(Cache::get('logoSetting'),$data));
+        Cache::forever('logoSetting', SettingService::array_override(Cache::get('logoSetting'), $data));
     }
 }

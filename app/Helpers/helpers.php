@@ -13,19 +13,24 @@ function limitText($text, $limit = 20)
     return \Str::limit($text, $limit);
 }
 
-if(!function_exists('isInsideArrayKey')){
+if (!function_exists('isInsideArrayKey')) {
     function isInsideArrayKey($valueCheck, $keyCheck, $array)
     {
-        foreach ($array as $key => $value) {
-            if (isset($value[$keyCheck]) && $value[$keyCheck] == $valueCheck) {
+        for (
+            $i = 0;
+            $i < count($array);
+            $i++
+        ) {
+            if (array_keys($array)[$i] == $keyCheck && $array[array_keys($array)[$i]] == $valueCheck) {
                 return true;
             }
         }
+
         return false;
     }
 }
-if(!function_exists('getValueInsideArrayKey')){
-    function getValueInsideArrayKey($valueCheck, $keyCheck,$keyValue, $array)
+if (!function_exists('getValueInsideArrayKey')) {
+    function getValueInsideArrayKey($valueCheck, $keyCheck, $keyValue, $array)
     {
         foreach ($array as $key => $value) {
             if (isset($value[$keyCheck]) && $value[$keyCheck] == $valueCheck) {
@@ -71,7 +76,7 @@ if (!function_exists('getURL')) {
 if (!function_exists('get_user')) {
     function get_user($type, $field = 'id')
     {
-//        return Auth::guard($type)->user() ? Auth::guard($type)->user()->$field : "";
+        //        return Auth::guard($type)->user() ? Auth::guard($type)->user()->$field : "";
         return "";
     }
 }
@@ -109,11 +114,8 @@ if (!function_exists('getIdLog')) {
     function getIdLog()
     {
         # code...
-//        $getIDLogin = Auth::user()->id;
-//        $getInfo = User::where('id', $getIDLogin)->first();
-//        return $getInfo->id;
+        //        $getIDLogin = Auth::user()->id;
+        //        $getInfo = User::where('id', $getIDLogin)->first();
+        //        return $getInfo->id;
     }
 }
-
-
-
